@@ -112,7 +112,8 @@ namespace WindowsFormsApplication1
 
                 if (tirs[i].Location.X >= panelFond.Width)
                 {
-                    tirs.RemoveAt(i);
+                    this.tirs.ElementAt(i).Dispose();
+                    this.tirs.RemoveAt(i);
                 }
 
 

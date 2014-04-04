@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace WindowsFormsApplication1
 {
@@ -15,19 +16,19 @@ namespace WindowsFormsApplication1
         Keys direction;
        
        
-        List<Enemy1> Enemis = new List<Enemy1>();
+        List<Enemy2> Enemis = new List<Enemy2>();
         Joueur Joueur1;
 
+        private delegate void Deplacer();
 
         public Form1()
         {
             InitializeComponent();
             Joueur1 = new Joueur(panelFond, new Point(100, 100));
+            
         }
 
-
-
-
+        
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             direction = e.KeyData;
@@ -47,13 +48,21 @@ namespace WindowsFormsApplication1
         private void timerEnemis_Tick(object sender, EventArgs e)
         {
             NewEnemi();
+           // Thread Enemi = new Thread(Avance);
+            //Enemi.Start();
         }
 
         private void timerVitesseEnemi_Tick(object sender, EventArgs e)
         {
+            
             for (int i = 0; i < Enemis.Count; i++)
             {
-                Enemis[i].Avance(10);
+                if (Enemis[i].Color.Equals(Color.White))
+                {
+                    Enemis[i].Color = Color.Green;
+                }
+
+                Enemis[i].Avance(10, Joueur1);
 
                 if (Enemis[i].Location.X + Enemis[i].Width <= 0)
                 {
@@ -66,7 +75,6 @@ namespace WindowsFormsApplication1
                     Enemis[i].Location.Y <= Joueur1.Location.Y + Joueur1.Height &&
                     Enemis[i].Location.Y >= Joueur1.Location.Y)
                 {
-
                     //Mort();
                 }
 
@@ -79,24 +87,48 @@ namespace WindowsFormsApplication1
                         Joueur1.Tirs[j].Location.Y >= Enemis[i].Location.Y
                         )
                     {
-                        Enemis.ElementAt(i).Dispose();
-                        Enemis.RemoveAt(i);
+                        if (Enemis[i].Lives <= 0)
+                        {
+
+                            Enemis.ElementAt(i).Dispose();
+                            Enemis.RemoveAt(i);
+
+                        }
+                        else 
+                        {
+                            Enemis.ElementAt(i).Touche();
+                        }
+
 
                         Joueur1.Tirs.ElementAt(j).Dispose();
                         Joueur1.Tirs.RemoveAt(j);
 
+                        break;
+
                     }
                 }
             }
-
         }
+
 
         private void NewEnemi() {
 
-            Enemy1 enemi = new Enemy1(panelFond);
+            Enemy2 enemi = new Enemy2(panelFond);
             Enemis.Add(enemi);
 
+
         }
+
+
+        //private void Avance() {
+        //    Deplacer d = new Deplacer(Avance);
+        //    while (true)
+        //    {
+        //        try { this.Invoke(d); }
+        //        catch { }
+        //        Thread.Sleep(250);
+        //    }
+        //}
     }
         
 }
