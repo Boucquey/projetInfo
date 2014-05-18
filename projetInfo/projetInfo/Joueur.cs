@@ -32,18 +32,28 @@ namespace WindowsFormsApplication1
             switch (direction)
             {
                 case Keys.Up:
+                    if (p.Y > 0) 
+                    { 
                     p.Y -= 10;
+                    }
                     break;
 
                 case Keys.Down:
-                    p.Y += 10;
+                    if (p.Y+ pBJoueur.Height < panelFond.Height)
+                    {
+                        p.Y += 10;
+                    }
                     break;
 
                 case Keys.Left:
-                    p.X -= 10;
+                    if (p.X > 0)
+                    {
+                        p.X -= 10;
+                    }
                     break;
 
                 case Keys.Right:
+                    if(p.X + pBJoueur.Width < panelFond.Width)
                     p.X += 10;
                     break;
                 default: break;

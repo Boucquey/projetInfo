@@ -16,7 +16,7 @@ namespace WindowsFormsApplication1
         Keys direction;
        
        
-        List<Enemy2> Enemis = new List<Enemy2>();
+        List<Enemy1> Enemis = new List<Enemy1>();
         Joueur Joueur1;
 
         private delegate void Deplacer();
@@ -62,7 +62,7 @@ namespace WindowsFormsApplication1
                     Enemis[i].Color = Color.Green;
                 }
 
-                Enemis[i].Avance(10, Joueur1);
+                Enemis[i].Avance(10);
 
                 if (Enemis[i].Location.X + Enemis[i].Width <= 0)
                 {
@@ -113,7 +113,7 @@ namespace WindowsFormsApplication1
 
         private void NewEnemi() {
 
-            Enemy2 enemi = new Enemy2(panelFond);
+            Enemy1 enemi = new Enemy1(panelFond);
             Enemis.Add(enemi);
 
 
