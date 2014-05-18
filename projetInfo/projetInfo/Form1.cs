@@ -121,6 +121,16 @@ namespace WindowsFormsApplication1
 
         }
 
+        private void labelScore_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         //private void Avance() {
         //    Deplacer d = new Deplacer(Avance);
