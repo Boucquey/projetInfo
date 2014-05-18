@@ -22,10 +22,13 @@ namespace WindowsFormsApplication1
             pBJoueur = new PictureBox();
             pBJoueur.Location = loc;
             pBJoueur.BackColor = Color.White;
+            Image vaisseau = Image.FromFile(@".\vaisseau.png");
             pBJoueur.Size = new Size(50, 50);
+            pBJoueur.Image = vaisseau;
             this.panelFond = panel;
             panelFond.Controls.Add(pBJoueur);
             totalPoint = 0;
+            pBJoueur.Bounds.IntersectsWith(pBJoueur.Bounds);
         }
 
 

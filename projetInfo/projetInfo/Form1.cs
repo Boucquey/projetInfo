@@ -70,11 +70,12 @@ namespace WindowsFormsApplication1
                     Enemis.ElementAt(i).Dispose();
                     Enemis.RemoveAt(i);
                 }
-
-                if (Enemis[i].Location.X + Enemis[i].Width >= Joueur1.Location.X &&
+        /*        if (Enemis[i].Location.X + Enemis[i].Width >= Joueur1.Location.X &&
                     Enemis[i].Location.X + Enemis[i].Width <= Joueur1.Location.X + Joueur1.Width &&
                     Enemis[i].Location.Y <= Joueur1.Location.Y + Joueur1.Height &&
                     Enemis[i].Location.Y >= Joueur1.Location.Y)
+          */      if (Joueur1.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds))
+                
                 {
                     Joueur1.Mort();
                 }

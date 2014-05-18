@@ -86,7 +86,10 @@ namespace WindowsFormsApplication1
         }
 
 
-        public 
+        public PictureBox forme 
+        {
+            get { return enemi; }
+        }
 
 
         public void Touche(){
