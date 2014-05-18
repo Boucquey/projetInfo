@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             Joueur1 = new Joueur(panelFond, new Point(100, 100));
-            
+            labelScore.Text = "0";
         }
 
         
@@ -33,11 +33,12 @@ namespace WindowsFormsApplication1
         {
             direction = e.KeyData;
             Joueur1.Bouge(direction);
+            Joueur1.Tir(direction);
         }
 
         private void timerTir_Tick(object sender, EventArgs e)
         {
-            Joueur1.Tir();
+          //  Joueur1.Tir();
         }
 
         private void timerBouge_Tick(object sender, EventArgs e)
@@ -75,7 +76,7 @@ namespace WindowsFormsApplication1
                     Enemis[i].Location.Y <= Joueur1.Location.Y + Joueur1.Height &&
                     Enemis[i].Location.Y >= Joueur1.Location.Y)
                 {
-                    //Mort();
+                    Joueur1.Mort();
                 }
 
 
@@ -89,10 +90,10 @@ namespace WindowsFormsApplication1
                     {
                         if (Enemis[i].Lives <= 0)
                         {
-
+                            Joueur1.score += Enemis[i].score;
+                            labelScore.Text = Joueur1.score + "";
                             Enemis.ElementAt(i).Dispose();
                             Enemis.RemoveAt(i);
-
                         }
                         else 
                         {

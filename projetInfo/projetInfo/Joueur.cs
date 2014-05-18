@@ -12,6 +12,10 @@ namespace WindowsFormsApplication1
         Panel panelFond;
         PictureBox pBJoueur;
         List<Tir> tirs = new List<Tir>();
+        Boolean alive = true;
+
+
+        int totalPoint;
 
         public Joueur(Panel panel, Point loc)
         {
@@ -21,6 +25,7 @@ namespace WindowsFormsApplication1
             pBJoueur.Size = new Size(50, 50);
             this.panelFond = panel;
             panelFond.Controls.Add(pBJoueur);
+            totalPoint = 0;
         }
 
 
@@ -63,6 +68,23 @@ namespace WindowsFormsApplication1
         }
 
 
+        public void Mort()
+        {
+            this.Dispose();
+        }
+
+        public void Dispose() 
+        {
+            pBJoueur.Dispose();
+            alive = false;
+        }
+
+        public PictureBox forme
+        {
+            get { return this.pBJoueur; }
+
+        }
+
         public Point Location {
 
             get { return this.pBJoueur.Location; }
@@ -94,6 +116,7 @@ namespace WindowsFormsApplication1
 
         }
 
+
         public int Height
         {
 
@@ -102,11 +125,18 @@ namespace WindowsFormsApplication1
 
         }
 
-        public void Tir()
+        public int score
         {
+            get { return this.totalPoint; }
+            set { this.totalPoint = value; }
+        }
+
+        public void Tir(Keys fire)
+        {
+            if (fire.Equals(Keys.Space) && alive) { 
             Tir tir = new Tir(this);
             tirs.Add(tir);
-
+        }
         }
 
 

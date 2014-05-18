@@ -30,19 +30,34 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelFond = new System.Windows.Forms.Panel();
+            this.labelScore = new System.Windows.Forms.Label();
             this.timerTir = new System.Windows.Forms.Timer(this.components);
             this.timerBouge = new System.Windows.Forms.Timer(this.components);
             this.timerEnemis = new System.Windows.Forms.Timer(this.components);
             this.timerVitesseEnemi = new System.Windows.Forms.Timer(this.components);
+            this.panelFond.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelFond
             // 
             this.panelFond.BackColor = System.Drawing.SystemColors.ControlText;
+            this.panelFond.Controls.Add(this.labelScore);
             this.panelFond.Location = new System.Drawing.Point(-2, -2);
             this.panelFond.Name = "panelFond";
             this.panelFond.Size = new System.Drawing.Size(826, 484);
             this.panelFond.TabIndex = 0;
+            // 
+            // labelScore
+            // 
+            this.labelScore.AutoSize = true;
+            this.labelScore.BackColor = System.Drawing.SystemColors.ControlText;
+            this.labelScore.ForeColor = System.Drawing.Color.FloralWhite;
+            this.labelScore.Location = new System.Drawing.Point(14, 458);
+            this.labelScore.Name = "labelScore";
+            this.labelScore.Size = new System.Drawing.Size(63, 13);
+            this.labelScore.TabIndex = 0;
+            this.labelScore.Text = "CACACACA";
+            this.labelScore.UseMnemonic = false;
             // 
             // timerTir
             // 
@@ -77,6 +92,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.panelFond.ResumeLayout(false);
+            this.panelFond.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -88,6 +105,7 @@
         private System.Windows.Forms.Timer timerBouge;
         private System.Windows.Forms.Timer timerEnemis;
         private System.Windows.Forms.Timer timerVitesseEnemi;
+        private System.Windows.Forms.Label labelScore;
     }
 }
 

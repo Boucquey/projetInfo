@@ -13,7 +13,7 @@ namespace WindowsFormsApplication1
 
         PictureBox enemi;
         int lives;
-
+        int points = 100;
 
         public Enemy1(Panel panel)
         {
@@ -67,6 +67,12 @@ namespace WindowsFormsApplication1
 
         }
 
+        public int score 
+        {
+            get { return this.points; }
+            set { this.points = value; }
+        }
+
         public void Dispose(){
             this.enemi.Dispose();
         }
@@ -78,6 +84,10 @@ namespace WindowsFormsApplication1
                 p.X -= vitesse;
                 enemi.Location = p;
         }
+
+
+        public 
+
 
         public void Touche(){
 
