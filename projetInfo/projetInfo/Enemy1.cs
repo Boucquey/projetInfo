@@ -14,6 +14,8 @@ namespace WindowsFormsApplication1
         PictureBox enemi;
         int lives;
         int points = 100;
+        Boolean dead = false;
+        int expl = 0;
 
         public Enemy1(Panel panel)
         {
@@ -22,8 +24,11 @@ namespace WindowsFormsApplication1
             Point p = new Point();
             p.X = panel.Width;
             p.Y = rnd.Next(0, panel.Height - enemi.Height);
+            Image vaisseau = Image.FromFile(@".\enemi1.png");
+            enemi.Image = vaisseau;
             enemi.Height = 30;
-            enemi.BackColor = Color.Red;
+            enemi.Width = 60;
+            enemi.BackColor = Color.Transparent;
             enemi.Location = p;
             panel.Controls.Add(enemi);
             lives = 2;
@@ -35,6 +40,10 @@ namespace WindowsFormsApplication1
             get { return this.lives; }
             set { this.lives = value; }
         
+        }
+        public Boolean mort {
+            get { return this.dead; }
+            set { this.dead = value; }
         }
         public int Width
         {
@@ -86,16 +95,52 @@ namespace WindowsFormsApplication1
         }
 
 
-        public 
+        public PictureBox forme 
+        {
+            get { return enemi; }
+            set { this.enemi = value; }
+        }
 
+
+
+        public int explo
+        {
+            get { return expl; }
+            set { this.expl = value; }
+        }
 
         public void Touche(){
 
             this.lives--;
-            this.enemi.BackColor = Color.White;
-            //Thread.Sleep(10);
-           
-        
+      
+        }
+
+        public void Death(){
+            switch (this.expl){
+            
+                case 0 : Image explosion = Image.FromFile(@".\expl1.png");
+                         this.enemi.Image = explosion;
+
+                         enemi.Refresh();
+                         enemi.Visible = true;
+                         break;
+
+                case 1 : explosion = Image.FromFile(@".\expl2.png");
+                         this.enemi.Image = explosion;
+
+                         enemi.Refresh();
+                         enemi.Visible = true;
+                         break;
+
+                case 2 : explosion = Image.FromFile(@".\expl3.png");
+                         this.enemi.Image = explosion;
+
+                         enemi.Refresh();
+                         enemi.Visible = true;
+                         break;
+               
+            }
+
         }
     }
 }
