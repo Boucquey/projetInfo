@@ -14,8 +14,8 @@ namespace WindowsFormsApplication1
     {
 
         Keys direction;
-       
-       
+        Keys tirer;
+
         List<Enemy1> Enemis = new List<Enemy1>();
         Joueur Joueur1;
 
@@ -26,19 +26,26 @@ namespace WindowsFormsApplication1
             InitializeComponent();
             Joueur1 = new Joueur(panelFond, new Point(100, 100));
             labelScore.Text = "0";
+            pBCharge.Maximum = 1000;
+            pBCharge.Minimum = 0;
+            //panelExplosion.BackColor = Color.FromArgb(2, 88, 44, 2);
         }
 
-        
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             direction = e.KeyData;
-            Joueur1.Bouge(direction);
-            Joueur1.Tir(direction);
+
+            if (e.KeyData == Keys.Space || e.KeyData == Keys.Enter)
+            {
+                tirer = e.KeyData;
+            }
         }
 
         private void timerTir_Tick(object sender, EventArgs e)
         {
-          //  Joueur1.Tir();
+            Joueur1.Tir(tirer);
+            
         }
 
         private void timerBouge_Tick(object sender, EventArgs e)
@@ -49,13 +56,18 @@ namespace WindowsFormsApplication1
         private void timerEnemis_Tick(object sender, EventArgs e)
         {
             NewEnemi();
-           // Thread Enemi = new Thread(Avance);
+            // Thread Enemi = new Thread(Avance);
             //Enemi.Start();
         }
 
         private void timerVitesseEnemi_Tick(object sender, EventArgs e)
         {
-            
+            labelScore.Text = Joueur1.score + "";
+            pBCharge.Value = Joueur1.enchainement;
+            if (Joueur1.destroy)
+            {
+                Destroy();
+            }
             for (int i = 0; i < Enemis.Count; i++)
             {
                 if (Enemis[i].Color.Equals(Color.White))
@@ -70,14 +82,14 @@ namespace WindowsFormsApplication1
                     Enemis.ElementAt(i).Dispose();
                     Enemis.RemoveAt(i);
                 }
-        /*        if (Enemis[i].Location.X + Enemis[i].Width >= Joueur1.Location.X &&
-                    Enemis[i].Location.X + Enemis[i].Width <= Joueur1.Location.X + Joueur1.Width &&
-                    Enemis[i].Location.Y <= Joueur1.Location.Y + Joueur1.Height &&
-                    Enemis[i].Location.Y >= Joueur1.Location.Y)
-          */      if (Joueur1.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds))
-                
+                /*        if (Enemis[i].Location.X + Enemis[i].Width >= Joueur1.Location.X &&
+                            Enemis[i].Location.X + Enemis[i].Width <= Joueur1.Location.X + Joueur1.Width &&
+                            Enemis[i].Location.Y <= Joueur1.Location.Y + Joueur1.Height &&
+                            Enemis[i].Location.Y >= Joueur1.Location.Y)
+                  */
+                if (Joueur1.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds)&& !Enemis[i].mort)
                 {
-                    Joueur1.Mort();
+                    Joueur1.enVie = false ;
                 }
 
 
@@ -92,11 +104,17 @@ namespace WindowsFormsApplication1
                         if (Enemis[i].Lives <= 0)
                         {
                             Joueur1.score += Enemis[i].score;
-                            labelScore.Text = Joueur1.score + "";
-                            Enemis.ElementAt(i).Dispose();
-                            Enemis.RemoveAt(i);
+                            if (pBCharge.Value < pBCharge.Maximum)
+                            {
+                                Joueur1.enchainement += 5;
+
+                            }
+                            Enemis.ElementAt(i).mort = true;
+
+                          
+
                         }
-                        else 
+                        else
                         {
                             Enemis.ElementAt(i).Touche();
                         }
@@ -113,7 +131,8 @@ namespace WindowsFormsApplication1
         }
 
 
-        private void NewEnemi() {
+        private void NewEnemi()
+        {
 
             Enemy1 enemi = new Enemy1(panelFond);
             Enemis.Add(enemi);
@@ -131,16 +150,70 @@ namespace WindowsFormsApplication1
 
         }
 
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            direction = Keys.E;
 
-        //private void Avance() {
-        //    Deplacer d = new Deplacer(Avance);
-        //    while (true)
-        //    {
-        //        try { this.Invoke(d); }
-        //        catch { }
-        //        Thread.Sleep(250);
-        //    }
-        //}
+            if (e.KeyData == Keys.Space)
+            {
+                tirer = Keys.E;
+            }
+        }
+
+        private void deplacement(object sender, EventArgs e)
+        {
+            Joueur1.Bouge(direction);
+
+        }
+
+        private void Destroy()
+        {
+            for (int i = 0; i < Enemis.Count; i++)
+            {
+               
+
+                Joueur1.score += Enemis[i].score;
+
+                Enemis.ElementAt(i).mort = true;
+
+                Joueur1.destroy = false;
+              
+            }
+        }
+
+        private void timerExplosion_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Enemis.Count; i++) 
+            {
+                if (Enemis.ElementAt(i).mort) {
+                    Enemis.ElementAt(i).explo += 1;
+                    Enemis.ElementAt(i).Death();
+                    if (Enemis.ElementAt(i).explo == 3)
+                    {
+                        Enemis.ElementAt(i).Dispose();
+                        Enemis.RemoveAt(i);
+                        
+                    }
+                }
+
+            }
+            if (!Joueur1.enVie&&Joueur1.explo<3) {
+                    Joueur1.explo += 1;
+                    Joueur1.Mort();
+            }
+             if (Joueur1.explo == 3) {
+                 Joueur1.Dispose();
+                 Form3 frm = new Form3();
+                 frm.SetScore(Joueur1.score);
+                 frm.Show();
+                 
+                 this.Dispose();
+
+             }
+            
+
+
+        }
     }
         
 }

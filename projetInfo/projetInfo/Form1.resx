@@ -133,7 +133,7 @@
   <data name="pBInterface.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA1IAAAAoCAIAAAB7FVxqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAA1zSURBVHhe7Z3rlaQ6EoTHkPo/BpQR5UP7UDaML+vKOrNm
+        YQUAAAAJcEhZcwAADr8AAA6/ATgFUyQAAA1zSURBVHhe7Z3rlaQ6EoTHkPo/BpQR5UP7UDaML+vKOrNm
         rJQZCZIQoBcU1cR3dE4PAkKpR3fE1p3p/fOPNPEnBr1fAoo20EsIuRP4/g9+AuD6S34moFb+BLsM3I6L
         oBvhyF/ql+P4S74KbBsh5LcDKwh8Gtff49zfVe2vh9txEXQjHPlL/XIcSBPkS8C2EUJ+O7CCwKdx/T3O
         jXIFdJHPwY24CLoRjvylfjkOpAnyJWDbCCG/HVhB4NO4/irnRsUCusiH4C5cBN0IR/5SvxwH0sTfv3/+
@@ -194,7 +194,13 @@
         AABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="timerDeplacement.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>497, 17</value>
+  </metadata>
+  <metadata name="timerExplosion.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>649, 17</value>
+  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>25</value>
+    <value>107</value>
   </metadata>
 </root>

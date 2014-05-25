@@ -29,24 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pBIntro = new System.Windows.Forms.PictureBox();
             this.btnSingleplayer = new System.Windows.Forms.Button();
             this.btnMultiplayer = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBIntro)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pBIntro
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(-7, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(850, 470);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pBIntro.Image = ((System.Drawing.Image)(resources.GetObject("pBIntro.Image")));
+            this.pBIntro.InitialImage = ((System.Drawing.Image)(resources.GetObject("pBIntro.InitialImage")));
+            this.pBIntro.Location = new System.Drawing.Point(-7, -1);
+            this.pBIntro.Name = "pBIntro";
+            this.pBIntro.Size = new System.Drawing.Size(850, 470);
+            this.pBIntro.TabIndex = 0;
+            this.pBIntro.TabStop = false;
             // 
             // btnSingleplayer
             // 
+            this.btnSingleplayer.Font = new System.Drawing.Font("QuickExpress", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSingleplayer.Location = new System.Drawing.Point(542, 129);
             this.btnSingleplayer.Name = "btnSingleplayer";
             this.btnSingleplayer.Size = new System.Drawing.Size(212, 32);
@@ -57,6 +58,7 @@
             // 
             // btnMultiplayer
             // 
+            this.btnMultiplayer.Font = new System.Drawing.Font("QuickExpress", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMultiplayer.Location = new System.Drawing.Point(542, 179);
             this.btnMultiplayer.Name = "btnMultiplayer";
             this.btnMultiplayer.Size = new System.Drawing.Size(212, 32);
@@ -72,17 +74,20 @@
             this.ClientSize = new System.Drawing.Size(834, 462);
             this.Controls.Add(this.btnMultiplayer);
             this.Controls.Add(this.btnSingleplayer);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pBIntro);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(850, 500);
+            this.MinimumSize = new System.Drawing.Size(850, 500);
             this.Name = "Form2";
             this.Text = "Menu";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pBIntro)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pBIntro;
         private System.Windows.Forms.Button btnSingleplayer;
         private System.Windows.Forms.Button btnMultiplayer;
     }

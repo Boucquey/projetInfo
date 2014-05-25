@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pBIntro.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA1IAAAHWCAIAAADy+i+3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsEAAA7BAbiRa+0AADERSURBVHhe7d09ruRIuh7gWUFj3AZUXhvt9DgNjDnXvXY7
+        YQUAAAAJcEhZcwAADr4AAA6+AepCscAAADERSURBVHhe7d09ruRIuh7gWUFj3AZUXhvt9DgNjDnXvXY7
         Wkh5cu4aegvaQFsytAQBdx2CHDnaQImZjMPD/PhPRgTJPM+DF4M6eTLJSP7Fm8nqmr8BAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO/348SP9
         CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADvjx40f6EwAA
@@ -334,10 +334,10 @@
         SUVORK5CYII=
 </value>
   </data>
-  <data name="pictureBox1.InitialImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pBIntro.InitialImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA1IAAAHWCAIAAADy+i+3AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsEAAA7BAbiRa+0AADERSURBVHhe7d09ruRIuh7gWUFj3AZUXhvt9DgNjDnXvXY7
+        YQUAAAAJcEhZcwAADr4AAA6+AepCscAAADERSURBVHhe7d09ruRIuh7gWUFj3AZUXhvt9DgNjDnXvXY7
         Wkh5cu4aegvaQFsytAQBdx2CHDnaQImZjMPD/PhPRgTJPM+DF4M6eTLJSP7Fm8nqmr8BAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO/348SP9
         CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADvjx40f6EwAA

@@ -38,6 +38,8 @@
             this.timerVitesseEnemi = new System.Windows.Forms.Timer(this.components);
             this.pBInterface = new System.Windows.Forms.PictureBox();
             this.pBCharge = new System.Windows.Forms.ProgressBar();
+            this.timerDeplacement = new System.Windows.Forms.Timer(this.components);
+            this.timerExplosion = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pBInterface)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +67,6 @@
             // timerTir
             // 
             this.timerTir.Enabled = true;
-            this.timerTir.Interval = 200;
             this.timerTir.Tick += new System.EventHandler(this.timerTir_Tick);
             // 
             // timerBouge
@@ -77,7 +78,7 @@
             // timerEnemis
             // 
             this.timerEnemis.Enabled = true;
-            this.timerEnemis.Interval = 5000;
+            this.timerEnemis.Interval = 400;
             this.timerEnemis.Tick += new System.EventHandler(this.timerEnemis_Tick);
             // 
             // timerVitesseEnemi
@@ -103,6 +104,17 @@
             this.pBCharge.Size = new System.Drawing.Size(254, 26);
             this.pBCharge.TabIndex = 2;
             // 
+            // timerDeplacement
+            // 
+            this.timerDeplacement.Enabled = true;
+            this.timerDeplacement.Interval = 20;
+            this.timerDeplacement.Tick += new System.EventHandler(this.deplacement);
+            // 
+            // timerExplosion
+            // 
+            this.timerExplosion.Enabled = true;
+            this.timerExplosion.Tick += new System.EventHandler(this.timerExplosion_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,9 +124,13 @@
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.pBInterface);
             this.Controls.Add(this.panelFond);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(850, 500);
+            this.MinimumSize = new System.Drawing.Size(850, 500);
             this.Name = "Form1";
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pBInterface)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -131,6 +147,8 @@
         private System.Windows.Forms.Label labelScore;
         private System.Windows.Forms.PictureBox pBInterface;
         private System.Windows.Forms.ProgressBar pBCharge;
+        private System.Windows.Forms.Timer timerDeplacement;
+        private System.Windows.Forms.Timer timerExplosion;
     }
 }
 
