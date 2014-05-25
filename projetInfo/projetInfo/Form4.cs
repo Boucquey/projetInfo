@@ -23,5 +23,13 @@ namespace WindowsFormsApplication1
 
             this.Hide();
         }
+
+        private void btnClient_Click(object sender, EventArgs e)
+        {
+            FormClient frm = new FormClient();
+            frm.Show();
+
+            this.Hide();
+        }
     }
 }

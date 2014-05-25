@@ -40,6 +40,7 @@
             this.btnClient.TabIndex = 0;
             this.btnClient.Text = "Client";
             this.btnClient.UseVisualStyleBackColor = true;
+            this.btnClient.Click += new System.EventHandler(this.btnClient_Click);
             // 
             // btnServer
             // 

@@ -24,6 +24,8 @@ namespace WindowsFormsApplication1
         Joueur Joueur1;
         Joueur Joueur2;
 
+        string[] coordonees = new String[2];
+        char[] separator = new Char[] {':'};
         private delegate void Deplacer();
         
         
@@ -44,7 +46,7 @@ namespace WindowsFormsApplication1
 
             Thread th1 = new Thread(Launch);
 
-            th1.Name = "A";
+            th1.Name = "Serveur";
 
             th1.Start();
         }
@@ -234,7 +236,7 @@ namespace WindowsFormsApplication1
         private void timerTir_Tick(object sender, EventArgs e)
         {
             Joueur1.Tir(tirer);
-            Joueur2.Tir(rcvString);
+            //Joueur2.Tir(rcvString);
         }
 
         private void timerBouge_Tick(object sender, EventArgs e)
@@ -245,12 +247,23 @@ namespace WindowsFormsApplication1
 
         private void timerDeplacement_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine("verif     " + rcvString);
+            Console.WriteLine("Blabla  : " +coordonees.Count());
             Joueur1.Bouge(direction);
-            Joueur2.Bouge(rcvString);
-            
-        }
 
+            if (coordonees.Count() >= 2)
+            {
+                if (coordonees[0] != null && coordonees[1] != null)
+                {
+                    //Console.WriteLine("les coordonees :  " + coordonees.ToString());
+                    Point z = new Point(int.Parse(coordonees[0]), int.Parse(coordonees[1]));
+
+                    //    point z = new point(convert.toint32(coordonees[2]), convert.toint32(coordonees[4]));
+
+                    //    joueur2.location = rcvstring;
+                    Joueur2.Location = z;
+                }
+            }
+        }
         private void timerExplosion_Tick(object sender, EventArgs e)
         
         {
@@ -306,7 +319,7 @@ namespace WindowsFormsApplication1
                // rcvString = "";
                 string sndString = "The string was recieved by the server.";
                 byte[] b = new byte[100];
-                while (stm.Read(b, 0, b.Length) != 0)
+                for (;;)
                 {
                     //int k = s.Receive(b);
                     Console.WriteLine("Recieved...");
@@ -314,9 +327,15 @@ namespace WindowsFormsApplication1
                     //   Console.Write(Convert.ToChar(b[i]));
                     ASCIIEncoding asen = new ASCIIEncoding();
                     rcvString = asen.GetString(b);
-                    
+
                     Console.WriteLine(rcvString);
-                    rcvString = rcvString.Substring(0, 2);
+
+                    coordonees = rcvString.Split(separator);
+
+
+
+
+
                     //s.Send(asen.GetBytes("The string was recieved by the server."));
                     stm.Write(asen.GetBytes(sndString), 0, sndString.Length);
 

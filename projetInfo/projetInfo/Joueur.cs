@@ -91,7 +91,7 @@ namespace WindowsFormsApplication1
         {
             Point p = new Point();
             p = pBJoueur.Location;
-            Console.WriteLine("bouge    " + direction+ "     ");
+            
             switch (direction)
             {
                 case "up":

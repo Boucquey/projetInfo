@@ -121,7 +121,7 @@
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAA1IAAABQCAYAAAATBkSRAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsEAAA7BAbiRa+0AAB6xSURBVHhe7Z3BleSq0oSvIb2/q7dqA/5l+9A+lA3jy3Nl
+        YQUAAAAJcEhZcwAADr8AAA6/ATgFUyQAAB6xSURBVHhe7Z3BleSq0oSvIb2/q7dqA/5l+9A+lA3jy3Nl
         nHle9C+EEiUoEAmFJKSOxXdONRKQSrKYiJGq6p8/f/78kHH5559/NqDznshvvnZCCLGQ2x9z7aXjufan
         8Vuuk9TBmiAC2iNgm7y4in///ZeQZlBNEULIbwH9w77XXjqea38iv+U6iR3WBBGkFnQ9wDZ5cRVIHBNi
         BdUUIYT8FtA/7HvtpeO59ieir/U3XC8pw1ogAtobYJu8uAokjgmxgmqKEEJ+C+gf9r320vFc+1PR1/tb
@@ -255,4 +255,22 @@
         9xuukRBCSIx1z7eeRwi5F7/3ff3n5/8BaBoAlmtSnwEAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="timerTir.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="timerBouge.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>104, 17</value>
+  </metadata>
+  <metadata name="timerTimerEnemis.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>191, 17</value>
+  </metadata>
+  <metadata name="timerVitesseEnemis.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>338, 17</value>
+  </metadata>
+  <metadata name="timerDeplacement.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>501, 15</value>
+  </metadata>
+  <metadata name="timerExplosion.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>645, 13</value>
+  </metadata>
 </root>

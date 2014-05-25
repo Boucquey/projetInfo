@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class Form5
+    partial class FormClient
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form5));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormClient));
             this.panelFond = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelScoreJ1 = new System.Windows.Forms.Label();
             this.labelScoreJ2 = new System.Windows.Forms.Label();
             this.pBChargeJ1 = new System.Windows.Forms.ProgressBar();
             this.pBChargeJ2 = new System.Windows.Forms.ProgressBar();
+            this.timerTir = new System.Windows.Forms.Timer(this.components);
+            this.timerBouge = new System.Windows.Forms.Timer(this.components);
+            this.timerTimerEnemis = new System.Windows.Forms.Timer(this.components);
+            this.timerVitesseEnemis = new System.Windows.Forms.Timer(this.components);
+            this.timerDeplacement = new System.Windows.Forms.Timer(this.components);
+            this.timerExplosion = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,7 +96,38 @@
             this.pBChargeJ2.Size = new System.Drawing.Size(255, 26);
             this.pBChargeJ2.TabIndex = 5;
             // 
-            // Form5
+            // timerTir
+            // 
+            this.timerTir.Enabled = true;
+            this.timerTir.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timerBouge
+            // 
+            this.timerBouge.Enabled = true;
+            this.timerBouge.Interval = 10;
+            this.timerBouge.Tick += new System.EventHandler(this.timerBouge_Tick);
+            // 
+            // timerTimerEnemis
+            // 
+            this.timerTimerEnemis.Enabled = true;
+            this.timerTimerEnemis.Interval = 600;
+            // 
+            // timerVitesseEnemis
+            // 
+            this.timerVitesseEnemis.Enabled = true;
+            this.timerVitesseEnemis.Interval = 50;
+            // 
+            // timerDeplacement
+            // 
+            this.timerDeplacement.Enabled = true;
+            this.timerDeplacement.Interval = 20;
+            this.timerDeplacement.Tick += new System.EventHandler(this.timerDeplacement_Tick);
+            // 
+            // timerExplosion
+            // 
+            this.timerExplosion.Enabled = true;
+            // 
+            // FormClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -102,8 +140,11 @@
             this.Controls.Add(this.panelFond);
             this.MaximumSize = new System.Drawing.Size(850, 540);
             this.MinimumSize = new System.Drawing.Size(850, 540);
-            this.Name = "Form5";
+            this.Name = "FormClient";
             this.Text = "Form5";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FromClient_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FromClient_KeyPress);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FromClient_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -118,5 +159,11 @@
         private System.Windows.Forms.Label labelScoreJ2;
         private System.Windows.Forms.ProgressBar pBChargeJ1;
         private System.Windows.Forms.ProgressBar pBChargeJ2;
+        private System.Windows.Forms.Timer timerTir;
+        private System.Windows.Forms.Timer timerBouge;
+        private System.Windows.Forms.Timer timerTimerEnemis;
+        private System.Windows.Forms.Timer timerVitesseEnemis;
+        private System.Windows.Forms.Timer timerDeplacement;
+        private System.Windows.Forms.Timer timerExplosion;
     }
 }
