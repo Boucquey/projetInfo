@@ -28,6 +28,12 @@ namespace WindowsFormsApplication1
         char[] separator = new Char[] {':'};
         private delegate void Deplacer();
         
+
+        NetworkStream stm;
+
+        TcpClient cl;
+
+        TcpListener myList;
         
         public FormServeur()
         {
@@ -43,12 +49,34 @@ namespace WindowsFormsApplication1
             pBChargeJ1.Minimum = 0;
             pBChargeJ2.Maximum = 1000;
             pBChargeJ2.Minimum = 0;
+            
+             try
+            {
+                IPAddress ipAd = IPAddress.Parse("127.0.0.1"); //use local m/c IP address, and use the same in the client
+                /* Initializes the Listener */
+                myList = new TcpListener(ipAd, 8001);
+                /* Start Listeneting at the specified port */
+                myList.Start();
+                Console.WriteLine("The server is running at port 8001...");
+                Console.WriteLine("The local End point is :" + myList.LocalEndpoint);
+                Console.WriteLine("Waiting for a connection.....");
+                //Socket s = myList.AcceptSocket();
+                cl = myList.AcceptTcpClient();
+                Console.WriteLine("Connection accepted from " + cl.Client.RemoteEndPoint);
+                stm = cl.GetStream();
+             }
+             catch (Exception e)
+            {
+                Console.WriteLine("Error..... " + e.StackTrace);
+                Console.ReadLine();
+            }
 
             Thread th1 = new Thread(Launch);
 
             th1.Name = "Serveur";
 
             th1.Start();
+        
         }
 
         private void Form6_KeyDown(object sender, KeyEventArgs e)
@@ -247,7 +275,7 @@ namespace WindowsFormsApplication1
 
         private void timerDeplacement_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine("Blabla  : " +coordonees.Count());
+            Parsing(); 
             Joueur1.Bouge(direction);
 
             if (coordonees.Count() >= 2)
@@ -299,52 +327,48 @@ namespace WindowsFormsApplication1
 
         }
 
+
+
+        public void Parsing() {
+
+            coordonees = rcvString.Split(separator);
+        
+        }
+
         public void Launch()
         {
-
-            try
-            {
-                IPAddress ipAd = IPAddress.Parse("127.0.0.1"); //use local m/c IP address, and use the same in the client
-                /* Initializes the Listener */
-                TcpListener myList = new TcpListener(ipAd, 8001);
-                /* Start Listeneting at the specified port */
-                myList.Start();
-                Console.WriteLine("The server is running at port 8001...");
-                Console.WriteLine("The local End point is :" + myList.LocalEndpoint);
-                Console.WriteLine("Waiting for a connection.....");
-                //Socket s = myList.AcceptSocket();
-                TcpClient cl = myList.AcceptTcpClient();
-                Console.WriteLine("Connection accepted from " + cl.Client.RemoteEndPoint);
-                NetworkStream stm = cl.GetStream();
+            try{
+              while (true)
+                {
                // rcvString = "";
                 string sndString = "The string was recieved by the server.";
                 byte[] b = new byte[100];
-                for (;;)
-                {
-                    //int k = s.Receive(b);
-                    Console.WriteLine("Recieved...");
-                    //for (int i = 0; i < k; i++)
-                    //   Console.Write(Convert.ToChar(b[i]));
-                    ASCIIEncoding asen = new ASCIIEncoding();
-                    rcvString = asen.GetString(b);
+                  int w = 0;
 
-                    Console.WriteLine(rcvString);
+                    while (stm.Read(b, 0, b.Length) != 0)
+                    {
+                        w++;
+                        Console.WriteLine("ok pour w ");
+                        stm.Read(b, 0, b.Length);
+                        //int k = s.Receive(b);
+                        Console.WriteLine("Recieved..." + w);
+                        //for (int i = 0; i < k; i++)
+                        //   Console.Write(Convert.ToChar(b[i]));
+                        ASCIIEncoding asen = new ASCIIEncoding();
+                        rcvString = asen.GetString(b);
 
-                    coordonees = rcvString.Split(separator);
+                        Console.Write("recu : " + rcvString);
+                        //s.Send(asen.GetBytes("The string was recieved by the server."));
+                        stm.Write(asen.GetBytes(sndString), 0, sndString.Length);
 
-
-
-
-
-                    //s.Send(asen.GetBytes("The string was recieved by the server."));
-                    stm.Write(asen.GetBytes(sndString), 0, sndString.Length);
-
-                    Console.WriteLine("\nSent Acknowledgement");
-                    /* clean up */
+                        //Console.WriteLine("\nSent Acknowledgement");
+                        /* clean up */
+                    }
+                    Console.WriteLine("sortit de la boucle");
+                    stm.Close();
+                    cl.Close();
+                    myList.Stop();
                 }
-                stm.Close();
-                cl.Close();
-                myList.Stop();
             }
             catch (Exception e)
             {

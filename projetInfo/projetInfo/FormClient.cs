@@ -17,7 +17,7 @@ namespace WindowsFormsApplication1
 
         Joueur Joueur1;
         Joueur Joueur2;
-
+        Boolean connected;
 
         String str = "";
         Keys direction;
@@ -116,6 +116,7 @@ namespace WindowsFormsApplication1
                 tcpclnt.Connect("127.0.0.1", 8001); // use the ipaddress as in the server program
                 Console.WriteLine("Connected");
                 stm = tcpclnt.GetStream();
+                connected = true;
             }
             catch (Exception e)
             {
@@ -133,8 +134,7 @@ namespace WindowsFormsApplication1
 
         private void verif() {
 
-            
-            
+            if (!str.Equals("") && connected) { 
             Console.Write("touche : " + str);
 
             ASCIIEncoding asen = new ASCIIEncoding();
@@ -152,7 +152,7 @@ namespace WindowsFormsApplication1
             // Console.WriteLine(asen.GetString(bb));
 
            // tcpclnt.Close();
-        
+          }
         }
     }
 }
