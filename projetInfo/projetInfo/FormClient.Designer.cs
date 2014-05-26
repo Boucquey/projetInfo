@@ -111,11 +111,13 @@
             // 
             this.timerTimerEnemis.Enabled = true;
             this.timerTimerEnemis.Interval = 600;
+            this.timerTimerEnemis.Tick += new System.EventHandler(this.timerTimerEnemis_Tick);
             // 
             // timerVitesseEnemis
             // 
             this.timerVitesseEnemis.Enabled = true;
             this.timerVitesseEnemis.Interval = 50;
+            this.timerVitesseEnemis.Tick += new System.EventHandler(this.timerVitesseEnemis_Tick);
             // 
             // timerDeplacement
             // 
@@ -126,6 +128,7 @@
             // timerExplosion
             // 
             this.timerExplosion.Enabled = true;
+            this.timerExplosion.Tick += new System.EventHandler(this.timerExplosion_Tick);
             // 
             // FormClient
             // 

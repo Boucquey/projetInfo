@@ -17,11 +17,13 @@ namespace WindowsFormsApplication1
         Boolean dead = false;
         int expl = 0;
 
+        Point p;
+
         public Enemy1(Panel panel)
         {
             Random rnd = new Random();
             enemi = new PictureBox();
-            Point p = new Point();
+            p = new Point();
             p.X = panel.Width;
             p.Y = rnd.Next(0, panel.Height - enemi.Height);
             Image vaisseau = Image.FromFile(@".\enemi1.png");
@@ -33,6 +35,23 @@ namespace WindowsFormsApplication1
             panel.Controls.Add(enemi);
             lives = 2;
  
+        }
+
+
+        public Enemy1(Panel panel, Point z)
+        {
+            this.p.X = z.X;
+            this.p.Y = z.Y;
+            enemi = new PictureBox();
+            Image vaisseau = Image.FromFile(@".\enemi1.png");
+            enemi.Image = vaisseau;
+            enemi.Height = 30;
+            enemi.Width = 60;
+            enemi.BackColor = Color.Transparent;
+            enemi.Location = p;
+            panel.Controls.Add(enemi);
+            lives = 2;
+
         }
         public int Lives 
         {
@@ -52,6 +71,13 @@ namespace WindowsFormsApplication1
             set { this.enemi.Width = value; }
 
         }
+
+        public Point Coordonees
+        {
+            get { return this.p; }
+            set { this.p = value; }
+        }
+
 
         public Color Color 
         {

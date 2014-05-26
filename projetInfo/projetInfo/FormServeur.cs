@@ -24,12 +24,16 @@ namespace WindowsFormsApplication1
         Joueur Joueur1;
         Joueur Joueur2;
 
-        string[] coordonees = new String[2];
-        char[] separator = new Char[] {':'};
+        string[] coordonees = new String[4];
+        char[] separator = new Char[] {':',':',':'};
         private delegate void Deplacer();
-        
+        Thread th1;
 
+        String str = "";
         NetworkStream stm;
+
+
+        String positionEnemi = "";
 
         TcpClient cl;
 
@@ -71,7 +75,7 @@ namespace WindowsFormsApplication1
                 Console.ReadLine();
             }
 
-            Thread th1 = new Thread(Launch);
+            th1 = new Thread(Launch);
 
             th1.Name = "Serveur";
 
@@ -92,6 +96,7 @@ namespace WindowsFormsApplication1
         private void timer1_Tick(object sender, EventArgs e)
         {
             NewEnemi();
+            positionEnemi = Enemis.ElementAt(Enemis.Count-1).Coordonees.X + ":" + Enemis.ElementAt(Enemis.Count-1).Coordonees.Y;
         }
 
 
@@ -264,9 +269,25 @@ namespace WindowsFormsApplication1
         private void timerTir_Tick(object sender, EventArgs e)
         {
             Joueur1.Tir(tirer);
-            //Joueur2.Tir(rcvString);
-        }
 
+            if (coordonees[2] != null)
+            {
+                if (coordonees[2].Equals("666"))
+                {
+                    Joueur2.Tir("bo");
+                }
+                if (coordonees[2].Equals("777"))
+                {
+                    Joueur2.Tir("ee");
+                }
+                if (coordonees[2].Equals("555"))
+                {
+                    Joueur2.Tir("fi");
+                }
+                Console.Write("tir : " + coordonees[2]);
+            }
+            
+        }
         private void timerBouge_Tick(object sender, EventArgs e)
         {
             Joueur1.AvanceTir();
@@ -275,8 +296,11 @@ namespace WindowsFormsApplication1
 
         private void timerDeplacement_Tick(object sender, EventArgs e)
         {
-            Parsing(); 
+
+            Parsing();
+            Console.WriteLine(th1.ToString()+"");
             Joueur1.Bouge(direction);
+            str = Joueur1.Location.X + ":" + Joueur1.Location.Y + ":";
 
             if (coordonees.Count() >= 2)
             {
@@ -291,6 +315,27 @@ namespace WindowsFormsApplication1
                     Joueur2.Location = z;
                 }
             }
+            if (tirer == Keys.Space || tirer == Keys.Enter)
+            {
+                if (tirer == Keys.Space)
+                {
+                    str += "555:";
+                }
+
+                if (tirer == Keys.Enter)
+                {
+                    str += "666:";
+                }
+            }
+            else { str += "777:"; }
+
+            if (tirer == Keys.E)
+            {
+                str += "777:";
+            }
+            str += positionEnemi;
+
+            verif();
         }
         private void timerExplosion_Tick(object sender, EventArgs e)
         
@@ -342,16 +387,19 @@ namespace WindowsFormsApplication1
                 {
                // rcvString = "";
                 string sndString = "The string was recieved by the server.";
-                byte[] b = new byte[100];
+                byte[] b = new byte[50];
                   int w = 0;
 
-                    while (stm.Read(b, 0, b.Length) != 0)
+                    while (true)//stm.Read(b, 0, b.Length) != 0)
                     {
+                        b = new byte[50];
                         w++;
-                        Console.WriteLine("ok pour w ");
-                        stm.Read(b, 0, b.Length);
-                        //int k = s.Receive(b);
                         Console.WriteLine("Recieved..." + w);
+                        stm.Read(b, 0, b.Length);
+                        Console.WriteLine("ok pour w ");
+                        //stm.Read(b, 0, b.Length);
+                        //int k = s.Receive(b);
+                        
                         //for (int i = 0; i < k; i++)
                         //   Console.Write(Convert.ToChar(b[i]));
                         ASCIIEncoding asen = new ASCIIEncoding();
@@ -359,10 +407,11 @@ namespace WindowsFormsApplication1
 
                         Console.Write("recu : " + rcvString);
                         //s.Send(asen.GetBytes("The string was recieved by the server."));
-                        stm.Write(asen.GetBytes(sndString), 0, sndString.Length);
+                       // stm.Write(asen.GetBytes(sndString), 0, sndString.Length);
 
                         //Console.WriteLine("\nSent Acknowledgement");
                         /* clean up */
+                       
                     }
                     Console.WriteLine("sortit de la boucle");
                     stm.Close();
@@ -374,6 +423,20 @@ namespace WindowsFormsApplication1
             {
                 Console.WriteLine("Error..... " + e.StackTrace);
                 Console.ReadLine();
+            }
+        }
+        private void verif()
+        {
+
+            if (!str.Equals(""))
+            {
+               // Console.Write("touche : " + str);
+                ASCIIEncoding asen = new ASCIIEncoding();
+                byte[] ba = asen.GetBytes(str);
+                stm.Write(ba, 0, ba.Length);
+                stm.Flush();
+               
+
             }
         }
     }
