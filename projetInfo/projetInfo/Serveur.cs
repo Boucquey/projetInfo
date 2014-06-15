@@ -70,7 +70,7 @@ namespace WindowsFormsApplication1
             ASCIIEncoding encoder = new ASCIIEncoding();
 
             byte[] rcvMsg;
-            byte[] sndMsg;
+          //  byte[] sndMsg;
             
             while (!stopped)
             {

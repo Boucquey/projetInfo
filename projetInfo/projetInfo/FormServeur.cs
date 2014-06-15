@@ -19,13 +19,15 @@ namespace WindowsFormsApplication1
         Keys tirer;
         string rcvString = "";
 
-        List<Enemy1> Enemis = new List<Enemy1>();
+        List<Enemy> Enemis = new List<Enemy>();
 
         Joueur Joueur1;
         Joueur Joueur2;
 
-        string[] coordonees = new String[4];
-        char[] separator = new Char[] {':',':',':'};
+        Boolean ok = true;
+
+        string[] coordonees = new String[6];
+        char[] separator = new Char[] {':',':',':',':',':'};
         private delegate void Deplacer();
         Thread th1;
 
@@ -45,8 +47,8 @@ namespace WindowsFormsApplication1
 
 
             InitializeComponent();
-            Joueur1 = new Joueur(panelFond, new Point(100, 100));
-            Joueur2 = new Joueur(panelFond, new Point(100, 150));
+            Joueur1 = new Joueur(panelFond, new Point(100, 100),true);
+            Joueur2 = new Joueur(panelFond, new Point(100, 150),false);
             labelScoreJ1.Text = "0";
             labelScoreJ2.Text = "0";
             pBChargeJ1.Maximum = 1000;
@@ -134,7 +136,7 @@ namespace WindowsFormsApplication1
         private void NewEnemi()
         {
 
-            Enemy1 enemi = new Enemy1(panelFond);
+            Enemy enemi = new Enemy(panelFond,false);
             Enemis.Add(enemi);
 
 
@@ -142,8 +144,9 @@ namespace WindowsFormsApplication1
 
         private void timerVitesseEnemis_Tick(object sender, EventArgs e)
         {
-            labelScoreJ1.Text = rcvString;
-            labelScoreJ2.Text = Joueur2.score + "";
+            
+           
+            
             pBChargeJ1.Value = Joueur1.enchainement;
             pBChargeJ2.Value = Joueur2.enchainement;
             if (Joueur1.destroy)
@@ -177,11 +180,7 @@ namespace WindowsFormsApplication1
                   */
                 if (Joueur1.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds) && !Enemis[i].mort)
                 {
-                   // Joueur1.enVie = false;
-                }
-                if (Joueur2.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds) && !Enemis[i].mort)
-                {
-                    //Joueur2.enVie = false;
+                   Joueur1.enVie = false;
                 }
 
                 for (int j = 0; j < Joueur1.Tirs.Count; j++)
@@ -284,7 +283,6 @@ namespace WindowsFormsApplication1
                 {
                     Joueur2.Tir("fi");
                 }
-                Console.Write("tir : " + coordonees[2]);
             }
             
         }
@@ -298,7 +296,25 @@ namespace WindowsFormsApplication1
         {
 
             Parsing();
-            Console.WriteLine(th1.ToString()+"");
+            if (coordonees.Count() >= 5)
+            {
+                if (coordonees[4] != null)
+                {
+                    if (int.Parse(coordonees[4]) == 1) { } else { Joueur2.enVie = false; }
+                }
+            }
+            if (coordonees.Count() >= 4)
+            {
+                if (coordonees[3] != null)
+                {
+                    Joueur2.score = int.Parse(coordonees[3]);
+                    labelScoreJ2.Text = Joueur2.score + "";
+                }
+                else { labelScoreJ2.Text = Joueur2.score + ""; }
+            }
+            else { labelScoreJ2.Text = Joueur2.score + ""; }
+            labelScoreJ1.Text = Joueur1.score + "";
+            
             Joueur1.Bouge(direction);
             str = Joueur1.Location.X + ":" + Joueur1.Location.Y + ":";
 
@@ -306,12 +322,7 @@ namespace WindowsFormsApplication1
             {
                 if (coordonees[0] != null && coordonees[1] != null)
                 {
-                    //Console.WriteLine("les coordonees :  " + coordonees.ToString());
                     Point z = new Point(int.Parse(coordonees[0]), int.Parse(coordonees[1]));
-
-                    //    point z = new point(convert.toint32(coordonees[2]), convert.toint32(coordonees[4]));
-
-                    //    joueur2.location = rcvstring;
                     Joueur2.Location = z;
                 }
             }
@@ -329,12 +340,14 @@ namespace WindowsFormsApplication1
             }
             else { str += "777:"; }
 
-            if (tirer == Keys.E)
-            {
-                str += "777:";
-            }
-            str += positionEnemi;
 
+            str += positionEnemi + ":";
+            str += Joueur1.score+":";
+            if (Joueur1.enVie)
+            {
+                str += "1:";
+            }
+            else { str += "0:"; }
             verif();
         }
         private void timerExplosion_Tick(object sender, EventArgs e)
@@ -360,14 +373,30 @@ namespace WindowsFormsApplication1
             }
              if (Joueur1.explo == 3) {
                  Joueur1.Dispose();
-                 Form3 frm = new Form3();
-                 frm.SetScore(Joueur1.score);
-                 frm.Show();
-                 
-                 this.Dispose();
+
 
              }
-            
+             if (!Joueur2.enVie && Joueur2.explo < 3)
+             {
+                 Joueur2.explo += 1;
+                 Joueur2.Mort();
+             }
+             if (Joueur2.explo == 3)
+             {
+                 Joueur2.Dispose();
+        
+
+             }
+             if (!Joueur1.enVie && !Joueur2.enVie)
+             {
+                 FormGameOver frm = new FormGameOver();
+                 frm.SetScoreMulti(Joueur1.score,Joueur2.score);
+                 frm.Show();
+                 ok = false;
+                 frm.BringToFront();
+                 this.Close();
+                 
+             }
 
 
         }
@@ -383,37 +412,26 @@ namespace WindowsFormsApplication1
         public void Launch()
         {
             try{
-              while (true)
+              while (ok)
                 {
-               // rcvString = "";
-                string sndString = "The string was recieved by the server.";
-                byte[] b = new byte[50];
-                  int w = 0;
+               
+           
+                byte[] b = new byte[60];
+                  
 
-                    while (true)//stm.Read(b, 0, b.Length) != 0)
+                    while (ok)//stm.Read(b, 0, b.Length) != 0)
                     {
-                        b = new byte[50];
-                        w++;
-                        Console.WriteLine("Recieved..." + w);
+                        b = new byte[60];
+                       
                         stm.Read(b, 0, b.Length);
-                        Console.WriteLine("ok pour w ");
-                        //stm.Read(b, 0, b.Length);
-                        //int k = s.Receive(b);
-                        
-                        //for (int i = 0; i < k; i++)
-                        //   Console.Write(Convert.ToChar(b[i]));
+                      
                         ASCIIEncoding asen = new ASCIIEncoding();
                         rcvString = asen.GetString(b);
 
                         Console.Write("recu : " + rcvString);
-                        //s.Send(asen.GetBytes("The string was recieved by the server."));
-                       // stm.Write(asen.GetBytes(sndString), 0, sndString.Length);
-
-                        //Console.WriteLine("\nSent Acknowledgement");
-                        /* clean up */
                        
                     }
-                    Console.WriteLine("sortit de la boucle");
+                  
                     stm.Close();
                     cl.Close();
                     myList.Stop();
@@ -430,7 +448,6 @@ namespace WindowsFormsApplication1
 
             if (!str.Equals(""))
             {
-               // Console.Write("touche : " + str);
                 ASCIIEncoding asen = new ASCIIEncoding();
                 byte[] ba = asen.GetBytes(str);
                 stm.Write(ba, 0, ba.Length);
@@ -438,6 +455,11 @@ namespace WindowsFormsApplication1
                
 
             }
+        }
+
+        private void FormServeur_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }

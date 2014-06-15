@@ -9,26 +9,40 @@ namespace WindowsFormsApplication1
 {
     class Joueur
     {
-        Panel panelFond;
-        PictureBox pBJoueur;
-        List<Tir> tirs = new List<Tir>();
-        Boolean alive = true;
-        Boolean destruction = false;
-        int combo;
-        int expl = 0;
-        int totalPoint;
-
-        public Joueur(Panel panel, Point loc)
+        Panel panelFond; // On sauvegarde le panel du jeu
+        PictureBox pBJoueur; // on crée la variable pour le pB du joueur
+        List<Tir> tirs = new List<Tir>(); // On a la liste des tirs du joueur (indispensable pour cintabiliser les points)
+        Boolean alive = true;   // Permet de savoir si le joueur doit exploser ou pas
+        Boolean destruction = false; //Permet de savoir si le joueur a utilisé son super tir ou pas
+        int combo; // Memorise le nombre d'enemis détruits afin d'avoir le super tir
+        int expl = 0; // Pour savoir où il en est dans la cinématique d'explosion
+        int totalPoint; // le score du joueur
+        Boolean joueur1; // Pour permettre de savoir si c'est le joueur 1 ou le joueur 2 (afin de changer la couleur)
+        public Joueur(Panel panel, Point loc, bool j1)
         {
             pBJoueur = new PictureBox();
             pBJoueur.Location = loc;
             pBJoueur.BackColor = Color.Transparent;
-            Image vaisseau = Image.FromFile(@".\vaisseau.png");
+            Bitmap vaisseau;
+            if (j1)
+            {
+                joueur1 = true;
+                vaisseau = new Bitmap(@".\vaisseau.bmp");
+                vaisseau.MakeTransparent((vaisseau.GetPixel(0, vaisseau.Size.Height - 1)));
+            }
+            else
+            {
+                joueur1 = false;
+                vaisseau = new Bitmap(@".\vaisseau2.bmp");
+                vaisseau.MakeTransparent((vaisseau.GetPixel(0, vaisseau.Size.Height - 1)));
+            }
+
             pBJoueur.Size = new Size(50, 50);
             pBJoueur.Image = vaisseau;
+            pBJoueur.BringToFront();
             this.panelFond = panel;
             panelFond.Controls.Add(pBJoueur);
-
+            pBJoueur.Refresh();
             totalPoint = 0;
             pBJoueur.Bounds.IntersectsWith(pBJoueur.Bounds);
             combo = 1000;
@@ -66,7 +80,15 @@ namespace WindowsFormsApplication1
                 case Keys.Right:
                     if(p.X + pBJoueur.Width < panelFond.Width)
                     p.X += 10;
-                    Image vaisseau = Image.FromFile(@".\vaisseauDroite.png");
+                    Image vaisseau;
+                    if (joueur1)
+                    {
+                        vaisseau = Image.FromFile(@".\vaisseauDroite.png");
+                    }
+                    else
+                    {
+                        vaisseau = Image.FromFile(@".\vaisseau2Droite.bmp");
+                    }
                     pBJoueur.Image = vaisseau;
                     pBJoueur.Refresh();
                     break;
@@ -76,7 +98,12 @@ namespace WindowsFormsApplication1
                     if (alive)
                     {
                         pBJoueur.BackColor = Color.Transparent;
-                        Image vaisseauStop = Image.FromFile(@".\vaisseau.png");
+                        Image vaisseauStop;
+                        if(joueur1){
+                        vaisseauStop = Image.FromFile(@".\vaisseau.png");
+                        }else{
+                            vaisseauStop = Image.FromFile(@".\vaisseau2.bmp");
+                        }
                         pBJoueur.Image = vaisseauStop;
                     }
                     break;
@@ -300,7 +327,7 @@ namespace WindowsFormsApplication1
                 p.X += tirs[i].Width;
 
                 tirs[i].Location = p;
-
+                tirs[i].forme.BringToFront();
                 if (tirs[i].Location.X >= panelFond.Width)
                 {
                     this.tirs.ElementAt(i).Dispose();

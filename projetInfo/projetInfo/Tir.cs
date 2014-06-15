@@ -25,6 +25,13 @@ namespace WindowsFormsApplication1
             tir.Width = 10;
             tir.Height = 2;
             joueur.panel.Controls.Add(tir);
+            Console.Beep(1000, 2);
+        }
+
+
+        public PictureBox forme
+        {
+            get { return this.tir; }
         }
 
         public int Width

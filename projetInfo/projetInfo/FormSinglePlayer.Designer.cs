@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class Form1
+    partial class FormSinglePlayer
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.panelFond = new System.Windows.Forms.Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSinglePlayer));
             this.labelScore = new System.Windows.Forms.Label();
             this.timerTir = new System.Windows.Forms.Timer(this.components);
             this.timerBouge = new System.Windows.Forms.Timer(this.components);
@@ -40,16 +39,12 @@
             this.pBCharge = new System.Windows.Forms.ProgressBar();
             this.timerDeplacement = new System.Windows.Forms.Timer(this.components);
             this.timerExplosion = new System.Windows.Forms.Timer(this.components);
+            this.panelFond = new System.Windows.Forms.Panel();
+            this.pBDessin = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pBInterface)).BeginInit();
+            this.panelFond.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBDessin)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panelFond
-            // 
-            this.panelFond.BackColor = System.Drawing.SystemColors.ControlText;
-            this.panelFond.Location = new System.Drawing.Point(-9, 0);
-            this.panelFond.Name = "panelFond";
-            this.panelFond.Size = new System.Drawing.Size(850, 419);
-            this.panelFond.TabIndex = 0;
             // 
             // labelScore
             // 
@@ -62,11 +57,11 @@
             this.labelScore.TabIndex = 0;
             this.labelScore.Text = "0";
             this.labelScore.UseMnemonic = false;
-            this.labelScore.Click += new System.EventHandler(this.labelScore_Click);
             // 
             // timerTir
             // 
             this.timerTir.Enabled = true;
+            this.timerTir.Interval = 150;
             this.timerTir.Tick += new System.EventHandler(this.timerTir_Tick);
             // 
             // timerBouge
@@ -78,7 +73,7 @@
             // timerEnemis
             // 
             this.timerEnemis.Enabled = true;
-            this.timerEnemis.Interval = 600;
+            this.timerEnemis.Interval = 1000;
             this.timerEnemis.Tick += new System.EventHandler(this.timerEnemis_Tick);
             // 
             // timerVitesseEnemi
@@ -95,7 +90,6 @@
             this.pBInterface.Size = new System.Drawing.Size(850, 40);
             this.pBInterface.TabIndex = 1;
             this.pBInterface.TabStop = false;
-            this.pBInterface.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pBCharge
             // 
@@ -115,23 +109,44 @@
             this.timerExplosion.Enabled = true;
             this.timerExplosion.Tick += new System.EventHandler(this.timerExplosion_Tick);
             // 
-            // Form1
+            // panelFond
+            // 
+            this.panelFond.BackColor = System.Drawing.Color.Black;
+            this.panelFond.Controls.Add(this.pBDessin);
+            this.panelFond.Location = new System.Drawing.Point(-9, -7);
+            this.panelFond.Name = "panelFond";
+            this.panelFond.Size = new System.Drawing.Size(850, 419);
+            this.panelFond.TabIndex = 0;
+            // 
+            // pBDessin
+            // 
+            this.pBDessin.BackColor = System.Drawing.Color.Transparent;
+            this.pBDessin.Location = new System.Drawing.Point(3, 0);
+            this.pBDessin.Name = "pBDessin";
+            this.pBDessin.Size = new System.Drawing.Size(850, 419);
+            this.pBDessin.TabIndex = 38;
+            this.pBDessin.TabStop = false;
+            // 
+            // FormSinglePlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 462);
+            this.Controls.Add(this.panelFond);
             this.Controls.Add(this.pBCharge);
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.pBInterface);
-            this.Controls.Add(this.panelFond);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(850, 500);
             this.MinimumSize = new System.Drawing.Size(850, 500);
-            this.Name = "Form1";
+            this.Name = "FormSinglePlayer";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSinglePlayer_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pBInterface)).EndInit();
+            this.panelFond.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pBDessin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,7 +154,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panelFond;
         private System.Windows.Forms.Timer timerTir;
         private System.Windows.Forms.Timer timerBouge;
         private System.Windows.Forms.Timer timerEnemis;
@@ -149,6 +163,8 @@
         private System.Windows.Forms.ProgressBar pBCharge;
         private System.Windows.Forms.Timer timerDeplacement;
         private System.Windows.Forms.Timer timerExplosion;
+        private System.Windows.Forms.Panel panelFond;
+        private System.Windows.Forms.PictureBox pBDessin;
     }
 }
 

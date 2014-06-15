@@ -19,7 +19,7 @@ namespace WindowsFormsApplication1
             Point p = new Point();
             p.X = panel.Width;
             p.Y = rnd.Next(0, panel.Height - enemi.Height);
-            enemi.Height = 30;
+            enemi.Height = 40;
             enemi.BackColor = Color.Green;
             enemi.Location = p;
             panel.Controls.Add(enemi);

@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class Form3
+    partial class FormGameOver
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGameOver));
             this.pBmort = new System.Windows.Forms.PictureBox();
             this.bnOk = new System.Windows.Forms.Button();
             this.labelScore = new System.Windows.Forms.Label();
@@ -69,7 +69,7 @@
             this.labelScore.Text = "Score  : 0";
             this.labelScore.Click += new System.EventHandler(this.label1_Click);
             // 
-            // Form3
+            // FormGameOver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -77,8 +77,9 @@
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.bnOk);
             this.Controls.Add(this.pBmort);
-            this.Name = "Form3";
+            this.Name = "FormGameOver";
             this.Text = "Form3";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormGameOver_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pBmort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

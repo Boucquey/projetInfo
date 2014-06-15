@@ -19,9 +19,9 @@ namespace WindowsFormsApplication1
         Joueur Joueur2;
         Boolean connected;
 
-        List<Enemy1> Enemis = new List<Enemy1>();
+        List<Enemy> Enemis = new List<Enemy>();
 
-        String recu = "";
+       // String recu = "";
 
         String str = "";
         Keys direction;
@@ -31,24 +31,24 @@ namespace WindowsFormsApplication1
 
         TcpClient tcpclnt;
 
-        string[] coordonees = new String[6];
-        char[] separator = new Char[] { ':', ':', ':',':',':' };
+        string[] coordonees = new String[8];
+        char[] separator = new Char[] { ':', ':', ':',':',':',':',':' };
 
    
         /// //////////
 
-
+        Boolean ok = true;
         NetworkStream stm;
       
         /// //////
-   
 
-        public FormClient()
+
+        public FormClient(String ip)
         {
 
             InitializeComponent();
-            Joueur1 = new Joueur(panelFond, new Point(100, 100));
-            Joueur2 = new Joueur(panelFond, new Point(100, 150));
+            Joueur1 = new Joueur(panelFond, new Point(100, 100),true);
+            Joueur2 = new Joueur(panelFond, new Point(100, 150),false);
             labelScoreJ1.Text = "0";
             labelScoreJ2.Text = "0";
             pBChargeJ1.Maximum = 1000;
@@ -59,7 +59,7 @@ namespace WindowsFormsApplication1
             {
                 tcpclnt = new TcpClient();
                 Console.WriteLine("Connecting.....");
-                tcpclnt.Connect("127.0.0.1", 8001); // use the ipaddress as in the server program
+                tcpclnt.Connect(ip, 8001); // use the ipaddress as in the server program
                 Console.WriteLine("Connected");
                 stm = tcpclnt.GetStream();
                 connected = true;
@@ -80,7 +80,7 @@ namespace WindowsFormsApplication1
         private void timer1_Tick(object sender, EventArgs e)
         {
             Joueur2.Tir(tirer);
-
+            if(coordonees.Count()>=3)
             if (coordonees[2] != null)
             {
                 if (coordonees[2].Equals("666"))
@@ -109,7 +109,25 @@ namespace WindowsFormsApplication1
         private void timerDeplacement_Tick(object sender, EventArgs e)
         {
             Parsing();
-
+            if (coordonees.Count() >= 8)
+            {
+                if (coordonees[6] != null)
+                {
+                    if (int.Parse(coordonees[6]) == 1) { } else { Joueur1.enVie = false; }
+                }
+            }
+            if (coordonees.Count() >= 7)
+            {
+                if (coordonees[5] != null)
+                {
+                    Joueur1.score = int.Parse(coordonees[5]);
+                    labelScoreJ1.Text = Joueur1.score + "";
+                }
+                else { labelScoreJ1.Text = Joueur1.score + ""; }
+            }
+            else { labelScoreJ1.Text = Joueur1.score + ""; }
+            //labelScoreJ1.Text = rcvString;
+            labelScoreJ2.Text = Joueur2.score + "";
 
 
             Joueur2.Bouge(direction);
@@ -129,6 +147,8 @@ namespace WindowsFormsApplication1
                 }
             }
 
+
+
             if (tirer == Keys.Space || tirer == Keys.Enter)
             {
                 if (tirer == Keys.Space)
@@ -143,11 +163,13 @@ namespace WindowsFormsApplication1
             }
             else { str += "777:"; }
 
-            if (tirer == Keys.E)
-            {
-                str += "777:";
-            }
+            str += Joueur2.score + ":";
             Console.WriteLine("coisman  : " + str);
+            if (Joueur2.enVie)
+            {
+                str += "1:";
+            }
+            else { str += "0:"; }
             verif();
         }
 
@@ -224,15 +246,15 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                while (true)
+                while (ok)
                 {
 
-                    byte[] b = new byte[50];
+                    byte[] b = new byte[60];
                   
 
-                    while (true)
+                    while (ok)
                     {
-                        b = new byte[50];
+                        b = new byte[60];
 
                        
                         stm.Read(b, 0, b.Length);
@@ -260,16 +282,15 @@ namespace WindowsFormsApplication1
             if (coordonees[3] != null && coordonees[4] != null)
             {
                 Point p = new Point(int.Parse(coordonees[3]),int.Parse(coordonees[4]));
-                Enemy1 enemi = new Enemy1(panelFond,p);
+                Enemy enemi = new Enemy(panelFond,p,true);
                 Enemis.Add(enemi);
             }
         }
 
         private void timerVitesseEnemis_Tick(object sender, EventArgs e)
         {
-     
-            labelScoreJ1.Text = rcvString;
-            labelScoreJ2.Text = Joueur2.score + "";
+            
+
             pBChargeJ1.Value = Joueur1.enchainement;
             pBChargeJ2.Value = Joueur2.enchainement;
             if (Joueur1.destroy)
@@ -301,13 +322,10 @@ namespace WindowsFormsApplication1
                             Enemis[i].Location.Y <= Joueur1.Location.Y + Joueur1.Height &&
                             Enemis[i].Location.Y >= Joueur1.Location.Y)
                   */
-                if (Joueur1.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds) && !Enemis[i].mort)
-                {
-                   // Joueur1.enVie = false;
-                }
+
                 if (Joueur2.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds) && !Enemis[i].mort)
                 {
-                    //Joueur2.enVie = false;
+                    Joueur2.enVie = false;
                 }
 
                 for (int j = 0; j < Joueur1.Tirs.Count; j++)
@@ -439,14 +457,39 @@ namespace WindowsFormsApplication1
             if (Joueur1.explo == 3)
             {
                 Joueur1.Dispose();
-                Form3 frm = new Form3();
-                frm.SetScore(Joueur1.score);
-                frm.Show();
 
-                this.Dispose();
+            }
+            if (!Joueur2.enVie && Joueur2.explo < 3)
+            {
+                Joueur2.explo += 1;
+                Joueur2.Mort();
+            }
+            if (Joueur2.explo == 3)
+            {
+                Joueur2.Dispose();
+            }
+            if (!Joueur1.enVie && !Joueur2.enVie)
+            {
+                FormGameOver frm = new FormGameOver();
+                frm.SetScoreMulti(Joueur1.score, Joueur2.score);
+                frm.Show();
+                ok = false;
+                frm.BringToFront();
+                this.Close();
 
             }
             
+        }
+
+
+        private void panelFond_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void FormClient_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
 
     }

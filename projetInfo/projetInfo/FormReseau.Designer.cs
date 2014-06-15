@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class Form4
+    partial class FormReseau
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReseau));
             this.btnClient = new System.Windows.Forms.Button();
             this.btnServer = new System.Windows.Forms.Button();
+            this.tBIp = new System.Windows.Forms.TextBox();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnClient
             // 
-            this.btnClient.Location = new System.Drawing.Point(103, 78);
+            this.btnClient.Location = new System.Drawing.Point(118, 147);
             this.btnClient.Name = "btnClient";
             this.btnClient.Size = new System.Drawing.Size(75, 23);
             this.btnClient.TabIndex = 0;
@@ -44,7 +47,7 @@
             // 
             // btnServer
             // 
-            this.btnServer.Location = new System.Drawing.Point(103, 138);
+            this.btnServer.Location = new System.Drawing.Point(118, 200);
             this.btnServer.Name = "btnServer";
             this.btnServer.Size = new System.Drawing.Size(75, 23);
             this.btnServer.TabIndex = 1;
@@ -52,16 +55,43 @@
             this.btnServer.UseVisualStyleBackColor = true;
             this.btnServer.Click += new System.EventHandler(this.btnServer_Click);
             // 
-            // Form4
+            // tBIp
+            // 
+            this.tBIp.Location = new System.Drawing.Point(138, 109);
+            this.tBIp.Name = "tBIp";
+            this.tBIp.Size = new System.Drawing.Size(110, 20);
+            this.tBIp.TabIndex = 2;
+            this.tBIp.Text = "127.0.0.1";
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.labelInfo.Font = new System.Drawing.Font("QuickExpress", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInfo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.labelInfo.Location = new System.Drawing.Point(79, 114);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(26, 10);
+            this.labelInfo.TabIndex = 3;
+            this.labelInfo.Text = "IP :";
+            // 
+            // FormReseau
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(310, 262);
+            this.Controls.Add(this.labelInfo);
+            this.Controls.Add(this.tBIp);
             this.Controls.Add(this.btnServer);
             this.Controls.Add(this.btnClient);
-            this.Name = "Form4";
+            this.MaximumSize = new System.Drawing.Size(326, 300);
+            this.MinimumSize = new System.Drawing.Size(326, 300);
+            this.Name = "FormReseau";
             this.Text = "Form4";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormReseau_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -69,5 +99,7 @@
 
         private System.Windows.Forms.Button btnClient;
         private System.Windows.Forms.Button btnServer;
+        private System.Windows.Forms.TextBox tBIp;
+        private System.Windows.Forms.Label labelInfo;
     }
 }

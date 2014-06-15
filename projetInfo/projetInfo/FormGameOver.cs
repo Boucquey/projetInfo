@@ -9,12 +9,12 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public partial class Form3 : Form
+    public partial class FormGameOver : Form
     {
-        public Form3()
+        public FormGameOver()
         {
             InitializeComponent();
-            pBmort.BackColor = Color.Transparent;
+            //pBmort.BackColor = Color.Transparent;
             Image gameOver = Image.FromFile(@".\gameOver.png");
             
         }
@@ -30,11 +30,24 @@ namespace WindowsFormsApplication1
 
         }
 
+        public void SetScoreMulti(int scoreJ1, int scoreJ2)
+        {
+            this.labelScore.Text = "Score Player 1 : " + scoreJ1 + "\nScore Player 2 : " + scoreJ2 +"";
+
+        }
+
         private void bnOk_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2();
-            frm.Show();
-            this.Dispose();
+            //FormMain frm = new FormMain();
+        //    frm.Show();
+           // this.Hide();
+            //this.Dispose();
+            this.Close();
+
+        }
+
+        private void FormGameOver_FormClosing(object sender, FormClosingEventArgs e)
+        {
 
         }
     }
