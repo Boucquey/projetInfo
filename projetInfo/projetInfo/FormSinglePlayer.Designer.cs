@@ -140,7 +140,7 @@
             this.MaximumSize = new System.Drawing.Size(850, 500);
             this.MinimumSize = new System.Drawing.Size(850, 500);
             this.Name = "FormSinglePlayer";
-            this.Text = "Form1";
+            this.Text = "SinglePlayer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSinglePlayer_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);

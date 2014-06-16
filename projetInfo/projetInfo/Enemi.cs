@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace WindowsFormsApplication1
 {
-    class Enemy
+    class Enemi
     {
 
         private PictureBox enemi; // On crée le pB de l'enemi
@@ -16,10 +16,9 @@ namespace WindowsFormsApplication1
         private int points = 100; // On lui attribue une certaine valeur pour le score
         private Boolean dead = false;// Permet de savoir si il doit exploser ou pas
         private int expl = 0;        // permet de savoir où il en est dans sa cinématique d'explosion
-
         private Point p;// position
 
-        public Enemy(Panel panel, Boolean multi) // création, il recoit le panel sur lequel il va apparaitre et aussi si il est utilisé en multijoueur ou pas
+        public Enemi(Panel panel, Boolean multi) // création, il recoit le panel sur lequel il va apparaitre et aussi si il est utilisé en multijoueur ou pas
         {
             Random rnd = new Random(); // On crée un nombre aléatoire
             enemi = new PictureBox(); // on instancie le pB
@@ -39,11 +38,9 @@ namespace WindowsFormsApplication1
             panel.Controls.Add(enemi);// On ajoute son controle au panel (redondance)
             lives = 2; // On lui attribue 2 vies
             enemi.Refresh(); // Redondance pour etre sur que son dessin soit mis
- 
         }
 
-
-        public Enemy(Panel panel, Point z, Boolean multi) //Permet de créer un enemi en multijoueur du coté client. Le client recoit la coordonnée de l'apparition de l'enemi
+        public Enemi(Panel panel, Point z, Boolean multi) //Permet de créer un enemi en multijoueur du coté client. Le client recoit la coordonnée de l'apparition de l'enemi
         {
             this.p.X = z.X;
             this.p.Y = z.Y;
@@ -60,7 +57,6 @@ namespace WindowsFormsApplication1
             enemi.Location = p;
             panel.Controls.Add(enemi);
             lives = 2;
-
         }
 
         public void Avance(int vitesse) //Parametre l'avancée de l'enemi, on peut faire varier la vitesse en choisisant un autre int
@@ -80,7 +76,6 @@ namespace WindowsFormsApplication1
         {
             switch (this.expl)
             {
-
                 case 0: Image explosion = Image.FromFile(@".\expl1.png");
                     this.enemi.Image = explosion; // On charge l'image de l'explosion correspondante
                     enemi.Refresh(); // redondance pour éviter les bugs
@@ -99,7 +94,6 @@ namespace WindowsFormsApplication1
                     enemi.Visible = true;
                     break;
             }
-
         }
 
         public void Dispose() //Permet de raccourcir la commande de destuction de l'ennemis
@@ -109,7 +103,7 @@ namespace WindowsFormsApplication1
 
 
         /// <>
-        /// Variables d'acces.
+        /// Methodes d'acces
         /// <>
        
 

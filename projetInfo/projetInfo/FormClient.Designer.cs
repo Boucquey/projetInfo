@@ -149,7 +149,6 @@
             this.panelFond.Name = "panelFond";
             this.panelFond.Size = new System.Drawing.Size(850, 419);
             this.panelFond.TabIndex = 0;
-            this.panelFond.Paint += new System.Windows.Forms.PaintEventHandler(this.panelFond_Paint);
             // 
             // pBEtoile18
             // 
@@ -530,10 +529,9 @@
             this.MaximumSize = new System.Drawing.Size(850, 540);
             this.MinimumSize = new System.Drawing.Size(850, 540);
             this.Name = "FormClient";
-            this.Text = "Form5";
+            this.Text = "Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormClient_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FromClient_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FromClient_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FromClient_KeyUp);
             this.panelFond.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pBEtoile18)).EndInit();

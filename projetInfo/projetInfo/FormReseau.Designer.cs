@@ -88,7 +88,7 @@
             this.MaximumSize = new System.Drawing.Size(326, 300);
             this.MinimumSize = new System.Drawing.Size(326, 300);
             this.Name = "FormReseau";
-            this.Text = "Form4";
+            this.Text = "Network";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormReseau_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

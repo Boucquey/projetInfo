@@ -7,12 +7,12 @@ using System.Drawing;
 
 namespace WindowsFormsApplication1
 {
-    class Enemy2
+    class Enemi2
     {
          PictureBox enemi;
          int lives;
 
-        public Enemy2(Panel panel)
+        public Enemi2(Panel panel)
         {
             Random rnd = new Random();
             enemi = new PictureBox();

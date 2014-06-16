@@ -52,10 +52,8 @@
     <Compile Include="FormClient.Designer.cs">
       <DependentUpon>FormClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="programmeServeur.cs" />
-    <Compile Include="Serveur.cs" />
-    <Compile Include="Enemy2.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="Enemi2.cs" />
+    <Compile Include="Enemi.cs" />
     <Compile Include="FormSinglePlayer.cs">
       <SubType>Form</SubType>
     </Compile>

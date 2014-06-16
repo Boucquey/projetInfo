@@ -529,8 +529,10 @@
             this.Controls.Add(this.labelScoreJ1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panelFond);
+            this.MaximumSize = new System.Drawing.Size(850, 540);
+            this.MinimumSize = new System.Drawing.Size(850, 540);
             this.Name = "FormServeur";
-            this.Text = "Form6";
+            this.Text = "Serveur";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormServeur_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form6_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form6_KeyUp);

@@ -12,15 +12,12 @@ namespace WindowsFormsApplication1
 {
     public partial class FormSinglePlayer : Form
     {
-               
-        
-       private Keys direction; // variable pour les commandes
-       private  Keys tirer;     // variable pour le tir
-       private List<Enemy> Enemis = new List<Enemy>(); // Liste d'enemis
-       private Joueur Joueur1;                           // joueur
-       private delegate void Print(Image fond);  // delegate pour pouvoir acceder au panel au moyen du thread 1
-       private Boolean stop = false; // controle du thread
-   
+        private Keys direction; // variable pour les commandes
+        private  Keys tirer;     // variable pour le tir
+        private List<Enemi> Enemis = new List<Enemi>(); // Liste d'enemis
+        private Joueur Joueur1;                           // joueur
+        private delegate void Print(Image fond);  // delegate pour pouvoir acceder au panel au moyen du thread 1
+        private Boolean stop = false; // controle du thread  
 
         public FormSinglePlayer()
         {
@@ -29,21 +26,15 @@ namespace WindowsFormsApplication1
             labelScore.Text = "0";  // initialisation du score
             pBCharge.Maximum = 1000; //initialisation de la jauge de tir
             pBCharge.Minimum = 0;
-        
             Thread th1 = new Thread(Decor); // Declaration du thread de gestion du décor
-          
             th1.Name = "decor"; // on donne un nom au thread
-      
             th1.Start(); // démarrage du thread
-
             pBDessin.Controls.AddRange(new Control[] { this.Joueur1.forme }); // on ajoute au pB le controle du joueur. Cela permet de ne pas avoir de "carré noir" entournant le dessin du joueur 
         }
-
 
         private void Form1_KeyDown(object sender, KeyEventArgs e) // S'enclanche quand une touche du clavier est enfoncée
         {
             direction = e.KeyData; // la direction est sauvée
-
             if (e.KeyData == Keys.Space || e.KeyData == Keys.Enter) // on vérifie si le joueur tire ou pas (space pour un tir normal, enter pour super tir)
             {
                 tirer = e.KeyData;
@@ -53,7 +44,6 @@ namespace WindowsFormsApplication1
         private void Form1_KeyUp(object sender, KeyEventArgs e)// S'enclanche quand le joueur leve son doigt d'une touche
         {
             direction = Keys.E; // met une valeur non reconnue pour éviter que le joueur ne continue de se déplacer même en ayant laché le bouton. Ceci permet aussi d'avoir des déplacements fluides
-
             if (e.KeyData == Keys.Space)
             {
                 tirer = Keys.E; // on fait la meme chose pour les tirs.
@@ -62,7 +52,6 @@ namespace WindowsFormsApplication1
 
         private void timerTir_Tick(object sender, EventArgs e) //Timer rapide qui gere les tirs
         {
-
             Joueur1.Tir(tirer); // methode de gestion du tir du joueur
             if(Joueur1.Tirs.Count !=0)
             pBDessin.Controls.AddRange(new Control[] { Joueur1.Tirs.ElementAt(Joueur1.Tirs.Count() - 1).forme }); // pemet d'ajouter le tir au panel (pour pas qu'il ne le cache)
@@ -80,7 +69,6 @@ namespace WindowsFormsApplication1
 
         private void timerVitesseEnemi_Tick(object sender, EventArgs e) // fais avancer les enemis
         {
-
             labelScore.Text = Joueur1.score + ""; // on initialise le label du score pour cette itération
             pBCharge.Value = Joueur1.enchainement; //remplis la jauge de super tir en fonction de l'enchainement du joueur
             if (Joueur1.destroy) // vérifie si le joueur a déclanché son super tir
@@ -89,22 +77,17 @@ namespace WindowsFormsApplication1
             }
             for (int i = 0; i < Enemis.Count; i++) // On passe en revue chaque enemi
             {
- 
                 Enemis[i].Avance(10);
-
                 if (Enemis[i].Location.X + Enemis[i].Width <= 0)
                 {
                     Enemis.ElementAt(i).Dispose();
                     Enemis.RemoveAt(i);
                     Joueur1.enVie = false;
                 }
-
                 if (Joueur1.forme.Bounds.IntersectsWith(Enemis[i].forme.Bounds)&& !Enemis[i].mort) // vérifie qu'il n'y aie pas de contacts entre le joueur et l'enemi
                 {
                     Joueur1.enVie = false ; // Si il y a contact, le joueur meurt, il explose.
                 }
-
-
                 for (int j = 0; j < Joueur1.Tirs.Count; j++)// on passe en revue tout les tirs
                 {
                     if (Joueur1.Tirs[j].Location.X + Joueur1.Tirs[j].Width >= Enemis[i].Location.X &&
@@ -137,7 +120,7 @@ namespace WindowsFormsApplication1
 
         private void NewEnemi()
         {
-            Enemy enemi = new Enemy(panelFond,false); // Crée un enemi. On lui envoie le panel et on lui dit qu'on est en singlePlayer
+            Enemi enemi = new Enemi(panelFond,false); // Crée un enemi. On lui envoie le panel et on lui dit qu'on est en singlePlayer
             Enemis.Add(enemi);//On l'ajoute a la liste
             if (Enemis.Count != 0)
             pBDessin.Controls.AddRange(new Control[] { Enemis.ElementAt(Enemis.Count()-1).forme }); // De nouveau, on l'ajoute au controle du panel pour ne pas avoir de carré noir
@@ -147,20 +130,15 @@ namespace WindowsFormsApplication1
         private void deplacement(object sender, EventArgs e) // timer de déplacement du joueur
         {
             Joueur1.Bouge(direction); // on envoie la valeur de déplacement du joueur
-
         }
 
         private void Destroy() // est enclanché quand le joueur utilise le super tir
         {
             for (int i = 0; i < Enemis.Count; i++) // on balaie les enemis
             {
-               
                 Joueur1.score += Enemis[i].score; // on ajoute le score au joueur
-
                 Enemis.ElementAt(i).mort = true; // les enemis sont morts et vont exploser
-
                 Joueur1.destroy = false; // on retire l'enchainement au joueur
-              
             }
         }
 
@@ -179,13 +157,14 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-
-            if (!Joueur1.enVie&&Joueur1.explo<3) { // cette partie permet de faire exploser le joueur
+            if (!Joueur1.enVie&&Joueur1.explo<3) 
+            {                            // cette partie permet de faire exploser le joueur
                     Joueur1.explo += 1; // de nouveau, cela se fait en 3 étapes.
                     Joueur1.Mort();
             }
 
-             if (Joueur1.explo == 3) { // quand le joueur est mort
+            if (Joueur1.explo == 3) 
+            {                       // quand le joueur est mort
                  Joueur1.Dispose(); // on le supprime
                  FormGameOver frm = new FormGameOver(); // on crée la fenetre game over
                  frm.SetScore(Joueur1.score);// on mets le score du joueur (il y a une méthode spécifique pour qu'on puisse utiliser la meme Form pour le multi)
@@ -194,15 +173,12 @@ namespace WindowsFormsApplication1
                  frm.BringToFront(); // on met la fenetre au premier plan, au dessus du menu qui réaparait lors de la fermeture de cette fenetre
                  this.Close(); // on ferme la fenetre et donc le menu réaparait
                  this.Dispose(); // par sécurité (ne sert a rien)
-
              }
         }
 
         private void Decor() // methode lancée par le thread
         {
-
-            Print  z = new Print(ChangeFond); // On instantie le délégate ???????????????????????????????????????????????????????
-            
+            Print  z = new Print(ChangeFond); // On instantie le délégate ???????????????????????????????????????????????????????   
             while (!stop) // permet de stoper le thread
             {
                 Image decor = Image.FromFile(@".\decor1.png"); // on alterne les deux images de fond. On aurait pu en mettre plus. Malheureusement c'est ça qui fait perdre les performances.
@@ -214,7 +190,6 @@ namespace WindowsFormsApplication1
                 catch { }
                 Thread.Sleep(500);
             }
-
         }
 
         private void ChangeFond(Image decor) // methode qui change le fond
@@ -228,8 +203,6 @@ namespace WindowsFormsApplication1
         {
             // utile pour ouvrir le menu
         }
-
     }
-        
 }
 

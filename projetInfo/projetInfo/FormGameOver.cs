@@ -14,41 +14,27 @@ namespace WindowsFormsApplication1
         public FormGameOver()
         {
             InitializeComponent();
-            //pBmort.BackColor = Color.Transparent;
             Image gameOver = Image.FromFile(@".\gameOver.png");
-            
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        public void SetScore(int score)
         {
- 
-        }
-
-        public void SetScore(int score){
             this.labelScore.Text = "Score : "+score +"";
-
-
         }
 
-        public void SetScoreMulti(int scoreJ1, int scoreJ2)
+        public void SetScoreMulti(int scoreJ1, int scoreJ2) // l'affichage s'adapte en multijoueur
         {
             this.labelScore.Text = "Score Player 1 : " + scoreJ1 + "\nScore Player 2 : " + scoreJ2 +"";
-
         }
 
         private void bnOk_Click(object sender, EventArgs e)
         {
-            //FormMain frm = new FormMain();
-        //    frm.Show();
-           // this.Hide();
-            //this.Dispose();
             this.Close();
-
         }
 
         private void FormGameOver_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            //event nécessaire pour la fermeture en multijoueur
         }
     }
 }

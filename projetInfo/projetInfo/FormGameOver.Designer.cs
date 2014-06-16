@@ -67,7 +67,6 @@
             this.labelScore.Size = new System.Drawing.Size(53, 13);
             this.labelScore.TabIndex = 2;
             this.labelScore.Text = "Score  : 0";
-            this.labelScore.Click += new System.EventHandler(this.label1_Click);
             // 
             // FormGameOver
             // 
@@ -77,8 +76,10 @@
             this.Controls.Add(this.labelScore);
             this.Controls.Add(this.bnOk);
             this.Controls.Add(this.pBmort);
+            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "FormGameOver";
-            this.Text = "Form3";
+            this.Text = "GameOver";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormGameOver_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pBmort)).EndInit();
             this.ResumeLayout(false);
